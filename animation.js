@@ -48,7 +48,6 @@
 
   function loadBatch(num) {
     batchLoadCounter = 0
-    console.log('loadFrames', frames.length)
     for (var i = num; i < num + BATCH_SIZE && i < MAX_FRAMES; i++) {
       var image = new Image()
       image.onload = frameLoaded
@@ -58,17 +57,21 @@
   }
 
   function step(timestamp) {
-    console.log('step')
+    if (frames.length === 0) {
+      window.requestAnimationFrame(step)
+      return
+    }
     if (!start) start = timestamp
     var progress = timestamp - start
     if (progress > FRAME_RATE) {
       const i = Math.floor(progress / FRAME_RATE)
-      console.log('excuting', i)
-      currentFrame += i
       start = timestamp - (progress % FRAME_RATE)
+      currentFrame += i
       currentFrame %= frames.length
       var current = frames[currentFrame]
-      if(current) imgEl.src = current.src
+      if(current) {
+        imgEl.src = current.src
+      }
     }
     window.requestAnimationFrame(step)
   }
