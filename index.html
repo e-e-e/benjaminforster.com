@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
-  <style type="text/css">
-    body, html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-    #bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      pointer-events: none;
-    }
-  </style>
+  <title>Benjamin Forster</title>
+  <link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="./animation.js"></script>
 </head>
 <body>
-  <div id="bg"><img id="ani" src="./images/img0000.jpg"></div>
+  <div class="fillwindow"><img id="ani" src="./images/img0000.jpg"></div>
+  <div class="fillwindow blend"><h1 id="text"></h1></div>
+  <div class="bottom">
+    <div class=icon-container>
+      <span class="icon">
+        <a href="http://www.emptybook.net">
+          <img src="./icons/fast_rewind.svg" alt="rewind icon">
+          <div>distant past</div>
+        </a>
+      </span>
+      <span class="icon">
+        <a href="mailto:benjamin@emptybook.net">
+          <img src="./icons/mail_outline.svg" alt="mail icon" />
+          <div>contact</div>
+        </a>
+      </span>
+      <span class="icon">
+        <a href="https://github.com/e-e-e">
+          <img src="./icons/github.svg" alt="github icon" />
+          <div>open source</div>
+        </a>
+      </span>
+    </div>
+  </div>
   <!-- <noscript>Without javascript you will just be seeing an image</noscript> -->
 </body>
 </html>
