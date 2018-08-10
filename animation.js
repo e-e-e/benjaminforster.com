@@ -20,6 +20,7 @@
   var currentFrame = 0
   var frames = []
   var batch = []
+  var batchLoadCounter = 0
 
   function init () {
     imgEl = document.getElementById('ani')
@@ -35,7 +36,8 @@
   }
 
   function frameLoaded() {
-    if (frames.length === MAX_FRAMES || batch.length === BATCH_SIZE) {
+    batchLoadCounter++
+    if (frames.length === MAX_FRAMES || batchLoadCounter === BATCH_SIZE) {
       Array.prototype.push.apply(frames, batch)
       batch = []
       if (frames.length < MAX_FRAMES) {
@@ -45,7 +47,7 @@
   }
 
   function loadBatch(num) {
-    console.log('loadFrames')
+    batchLoadCounter = 0
     for (var i = num; i < num + BATCH_SIZE && i < MAX_FRAMES; i++) {
       var image = new Image()
       image.onload = frameLoaded
