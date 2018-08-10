@@ -48,7 +48,7 @@
     console.log('loadFrames')
     for (var i = num; i < num + BATCH_SIZE && i < MAX_FRAMES; i++) {
       var image = new Image()
-      image.addEventListener('load', frameLoaded)
+      image.onload = frameLoaded
       image.src = './images/img' + paddedCount(i) + '.jpg'
       batch.push(image)
     }
