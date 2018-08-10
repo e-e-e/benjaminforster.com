@@ -48,6 +48,7 @@
 
   function loadBatch(num) {
     batchLoadCounter = 0
+    console.log('loadFrames', frames.length)
     for (var i = num; i < num + BATCH_SIZE && i < MAX_FRAMES; i++) {
       var image = new Image()
       image.onload = frameLoaded
@@ -57,10 +58,12 @@
   }
 
   function step(timestamp) {
+    console.log('step')
     if (!start) start = timestamp
     var progress = timestamp - start
     if (progress > FRAME_RATE) {
       const i = Math.floor(progress / FRAME_RATE)
+      console.log('excuting', i)
       currentFrame += i
       start = timestamp - (progress % FRAME_RATE)
       currentFrame %= frames.length
