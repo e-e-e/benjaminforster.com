@@ -1,10 +1,31 @@
 (function() {
-  var imgEl
-  var start = null
+
+  function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  ready(init)
+
   var MAX_FRAMES = 1867
   var FRAME_RATE = Math.floor(1000/25)
+  var BATCH_SIZE = 25
+
+  var imgEl
+
+  var start = null
   var currentFrame = 0
   var frames = []
+  var batch = []
+
+  function init () {
+    imgEl = document.getElementById('ani')
+    loadBatch(0)
+    window.requestAnimationFrame(step)
+  }
 
   function paddedCount(num) {
     if (num >= 1000) return '' + num
@@ -13,21 +34,24 @@
     else return '000' + num
   }
 
-  function pushFrameOntoStack(e) {
-    frames.push(e.target)
-    if (frames.length < MAX_FRAMES) loadFrame(frames.length)
+  function frameLoaded() {
+    if (frames.length === MAX_FRAMES || batch.length === BATCH_SIZE) {
+      Array.prototype.push.apply(frames, batch)
+      batch = []
+      if (frames.length < MAX_FRAMES) {
+        loadBatch(frames.length)
+      }
+    }
   }
 
-  function loadFrame (num) {
-    var image = new Image()
-    image.addEventListener('load', pushFrameOntoStack)
-    image.src = './images/img' + paddedCount(num) + '.jpg'
-  }
-
-  window.onload = function () {
-    imgEl = document.getElementById('ani')
-    loadFrame(0)
-    window.requestAnimationFrame(step)
+  function loadBatch(num) {
+    console.log('loadFrames')
+    for (var i = num; i < num + BATCH_SIZE && i < MAX_FRAMES; i++) {
+      var image = new Image()
+      image.addEventListener('load', frameLoaded)
+      image.src = './images/img' + paddedCount(i) + '.jpg'
+      batch.push(image)
+    }
   }
 
   function step(timestamp) {
