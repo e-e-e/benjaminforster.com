@@ -19,6 +19,25 @@
   var state = HIDDEN
 
   var scripts = [
+    "👋/👌/👋/👌/👋",
+    "you know what/i have been thinking/thinking about it/and/fuck you",
+    "fuck you if/you are comfortable/comfortable with the fact that/some people own so much/so much/that they are able/able to give",
+    "able to be/“philanthropists”",
+    "able to/decide/singularly/what to support/to judge “worth”",
+    "able to/distribute money/to those things/those things that/they “like”",
+    "all the while/able to/feel like/“moral”/and/“good”/“people”",
+    "able/while others/work/and/others work/work just to get by",
+    "those who have money to give/they have inherited/or/have accumulated/“their” wealth/either directly/or indirectly/through the very structures/which work against the majority/rent seeking/wage theft/conflict/war/environmental destruction",
+    "with “their” wealth/they take the luxury of choice/expecting gratitude/titular recognition/while reducing the commons/reducing the public",
+    "these people rob us twice",
+    "so",
+    "fuck you if/your happy to benefit from this",
+    "and/fuck you if/you don’t see anything wrong with this",
+    "and/fuck you if/you happily dine at their tables",
+    "fuck you if/your happily silent",
+    "✌️/👌/✌️/👌/✌️",
+    "now/back/to/the/romance",
+    "🌕/🌔/🌓/🌒/🌑",
     "I whisper ,/, to make/make me come/come to your/your ass ,/, and like/like this ? ” Maybe this is/is that you’re/you’re looking for/for three days/days , ”/” his/his father/father .",
     "But it wasn’t/wasn’t good enough/enough to read/read it ,/, take my/my room , and/and his body/body against him/him a smile/smile back . She stares at/at my words/words come out/out of his mouth/mouth with his/his head from/from this woman/woman , but/but I can’t help it/it was all she/she could only/only one/one of their/their loved ones .",
     '“I was hoping/hoping for a/a hot/hot against my/my hands on my/my hips/hips.',
@@ -41,6 +60,7 @@
     "I give him a/a few seconds ,/, aren’t you?"
   ]
   var scriptPosition = 0
+  var scriptNum = 0
   var script = []
 
   function init () {
@@ -77,16 +97,24 @@
     rotateText()
   }
 
+  var BREAK_POINT = 19
   function getNewScript() {
-    var s = scripts[Math.floor(Math.random() * scripts.length)]
+    var s;
+    if (scriptNum < BREAK_POINT) {
+      s = scripts[scriptNum]
+      scriptNum++
+    } else {
+      s = scripts[BREAK_POINT + Math.floor(Math.random() * (scripts.length - BREAK_POINT))]
+    }
     return s.split('/')
   }
 
   function getTiming(phrase) {
     var p = 150;
     var words = phrase.split(' ')
+    if (words.length === 1 && ['and', 'so', 'or', '...', 'able', 'work'].indexOf(words[0]) >= 0) return 1000
     for (var i = 0; i < words.length; i++) {
-      p += (Math.floor(words[i].length / 6) + 1) * 300
+      p += (Math.floor(words[i].length / 6) + 1) * 300 * (words[i] === 'fuck' ? 3 : 1)
     }
     return p
   }
