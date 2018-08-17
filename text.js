@@ -65,7 +65,9 @@
 
   function init () {
     textEl = document.getElementById('text')
-    window.requestAnimationFrame(loop)
+    setTimeout(function () {
+      window.requestAnimationFrame(loop)
+    }, 1200)
     window.addEventListener('resize', debounce(onResize, 100))
     rotateText()
   }
